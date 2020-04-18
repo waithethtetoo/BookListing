@@ -40,8 +40,11 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
       tvEmpty = findViewById(R.id.tv_empty);
       progressBar = findViewById(R.id.loading);
 
-      adapter = new BookCustomAdapter(this, QueryUtils.fetchBooksData(BOOKS_URL));
+      adapter = new BookCustomAdapter(this, new ArrayList<Books>());
       lstBooks.setAdapter(adapter);
+
+      lstBooks.setEmptyView(tvEmpty);
+
       cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
       NetworkInfo info = cm.getActiveNetworkInfo();
 
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
    @Override
    public Loader<List<Books>> onCreateLoader(int i, Bundle bundle) {
-      return new BooksLoader(this,BOOKS_URL);
+      return new BooksLoader(this, BOOKS_URL);
    }
 
    @Override

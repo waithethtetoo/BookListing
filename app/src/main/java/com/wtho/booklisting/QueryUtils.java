@@ -86,7 +86,7 @@ public final class QueryUtils {
       return output.toString();
    }
 
-   public static List<Books> extractFeatureFromJson(String bookJSON) {
+   public static List<Books> extractItemsFromJson(String bookJSON) {
       if (TextUtils.isEmpty(bookJSON)) {
          return null;
       }
@@ -123,7 +123,7 @@ public final class QueryUtils {
       } catch (IOException e) {
          Log.e(LOG_TAG, "Problem making the HTTP request.", e);
       }
-      List<Books> books = extractFeatureFromJson(jsonResponse);
+      List<Books> books = extractItemsFromJson(jsonResponse);
       return books;
    }
 }

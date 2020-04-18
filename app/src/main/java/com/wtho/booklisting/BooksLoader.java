@@ -26,7 +26,7 @@ public class BooksLoader extends AsyncTaskLoader<List<Books>> {
       if (murl == null) {
          return null;
       }
-      List<Books> books = QueryUtils.extractFeatureFromJson(murl);
+      List<Books> books = QueryUtils.fetchBooksData(murl);
       return books;
    }
 }
