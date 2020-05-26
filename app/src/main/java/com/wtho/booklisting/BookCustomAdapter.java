@@ -9,31 +9,49 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class BookCustomAdapter extends ArrayAdapter<Books> {
+public class BookCustomAdapter extends RecyclerView.Adapter<BookCustomAdapter.BookViewHolder> {
+   private List<Books> booksList;
 
-   public BookCustomAdapter(@NonNull Context context, @NonNull List<Books> objects) {
-      super(context, 0, objects);
+   public BookCustomAdapter(List<Books> booksList) {
+      this.booksList = booksList;
    }
+
 
    @NonNull
    @Override
-   public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-      View rootView = convertView;
-      if (rootView == null) {
-         rootView = LayoutInflater.from(getContext()).inflate(R.layout.list_items, parent, false);
+   public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+      View rootView = LayoutInflater.from(parent.getContext())
+              .inflate(R.layout.list_items, parent, false);
+      return new BookViewHolder(rootView);
+   }
+
+   @Override
+   public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
+      Books book = booksList.get(position);
+      holder.mTitle.setText(book.getmTitle());
+      holder.mAuthor.setText(book.getmAuthor());
+      holder.mPublishedDate.setText(book.getmPublishedDate());
+   }
+
+   @Override
+   public int getItemCount() {
+      return booksList.size();
+   }
+
+   public static class BookViewHolder extends RecyclerView.ViewHolder {
+      TextView mTitle;
+      TextView mAuthor;
+      TextView mPublishedDate;
+
+      public BookViewHolder(@NonNull View itemView) {
+         super(itemView);
+         mTitle = itemView.findViewById(R.id.tvTitle);
+         mAuthor = itemView.findViewById(R.id.tvAuthor);
+         mPublishedDate = itemView.findViewById(R.id.tvPublishedDate);
       }
-      TextView tvTitle = rootView.findViewById(R.id.tvTitle);
-      TextView tvAuthor = rootView.findViewById(R.id.tvAuthor);
-      TextView tvPublishedDate = rootView.findViewById(R.id.tvPublishedDate);
-
-      Books book = getItem(position);
-      tvTitle.setText(book.getmTitle());
-      tvAuthor.setText(book.getmAuthor());
-      tvPublishedDate.setText(book.getmPublishedDate());
-
-      return rootView;
    }
 }

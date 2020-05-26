@@ -21,15 +21,18 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Books>> {
-   private ListView lstBooks;
+   private RecyclerView lstBooks;
    private TextView tvEmpty;
    private ProgressBar progressBar;
    private static String BOOKS_URL = "https://www.googleapis.com/books/v1/volumes?q=android";
    private ConnectivityManager cm;
    private BookCustomAdapter adapter;
+   private List<Books> mBooksList;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +42,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
       lstBooks = findViewById(R.id.lst_books);
       tvEmpty = findViewById(R.id.tv_empty);
       progressBar = findViewById(R.id.loading);
-
-      adapter = new BookCustomAdapter(this, new ArrayList<Books>());
-      lstBooks.setAdapter(adapter);
-
-      lstBooks.setEmptyView(tvEmpty);
+      lstBooks.setLayoutManager(new LinearLayoutManager(this));
 
       cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
       NetworkInfo info = cm.getActiveNetworkInfo();
@@ -66,15 +65,17 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
    @Override
    public void onLoadFinished(@NonNull Loader<List<Books>> loader, List<Books> data) {
       progressBar.setVisibility(View.GONE);
-      tvEmpty.setText(R.string.no_books);
-      adapter.clear();
+
       if (data != null && !data.isEmpty()) {
-         adapter.addAll(data);
+         mBooksList = data;
+         adapter = new BookCustomAdapter(mBooksList);
+         lstBooks.setAdapter(adapter);
+      } else {
+         tvEmpty.setText(R.string.no_books);
       }
    }
 
    @Override
    public void onLoaderReset(@NonNull Loader<List<Books>> loader) {
-      adapter.clear();
    }
 }
