@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -24,8 +24,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity implements LoaderCallbacks<List<Books>> {
+
+public class BookShowActivity extends AppCompatActivity implements LoaderCallbacks<List<Books>> {
    private RecyclerView lstBooks;
    private TextView tvEmpty;
    private ProgressBar progressBar;
@@ -33,11 +36,14 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
    private ConnectivityManager cm;
    private BookCustomAdapter adapter;
    private List<Books> mBooksList;
+   private FirebaseAuth auth;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      setContentView(R.layout.activity_main);
+      setContentView(R.layout.activity_book_show);
+
+      auth = FirebaseAuth.getInstance();
 
       lstBooks = findViewById(R.id.lst_books);
       tvEmpty = findViewById(R.id.tv_empty);
@@ -77,5 +83,30 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
    @Override
    public void onLoaderReset(@NonNull Loader<List<Books>> loader) {
+   }
+
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu) {
+      getMenuInflater().inflate(R.menu.menu_book, menu);
+      return true;
+   }
+
+   @Override
+   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+      switch (item.getItemId()) {
+         case R.id.action_profile:
+            break;
+         case R.id.action_sign_out:
+            signOut();
+            break;
+      }
+      return super.onOptionsItemSelected(item);
+   }
+
+   private void signOut() {
+      if (auth.getCurrentUser() != null) {
+         auth.signOut();
+         startActivity(new Intent(BookShowActivity.this, LoginActivity.class));
+      }
    }
 }

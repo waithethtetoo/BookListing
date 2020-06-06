@@ -15,14 +15,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 public final class QueryUtils {
-   public static final String LOG_TAG = MainActivity.class.getName();
+   public static final String LOG_TAG = BookShowActivity.class.getName();
 
    public QueryUtils() {
    }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class BooksLoader extends AsyncTaskLoader<List<Books>> {
 
-   public static final String LOG_TAG = MainActivity.class.getName();
+   public static final String LOG_TAG = BookShowActivity.class.getName();
    private String murl;
 
    public BooksLoader(Context context, String url) {
