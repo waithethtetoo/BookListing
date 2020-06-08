@@ -95,6 +95,7 @@ public class BookShowActivity extends AppCompatActivity implements LoaderCallbac
    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
       switch (item.getItemId()) {
          case R.id.action_profile:
+            startActivity(new Intent(BookShowActivity.this, UserProfileActivity.class));
             break;
          case R.id.action_sign_out:
             signOut();
