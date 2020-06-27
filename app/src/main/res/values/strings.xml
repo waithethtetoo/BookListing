@@ -8,7 +8,7 @@
     <string name="enter_registered_email">Enter Your registered email ID</string>
     <string name="minimum_password">Password too short, enter minimum 6 characters!</string>
     <string name="auth_failed">Authentication failed, checked your email and password or sign up.</string>
-    <string name="enter_pasword">Enter password!</string>
+    <string name="enter_password">Enter password!</string>
     <string name="change_email">Change Email</string>
     <string name="change_password">Change Password</string>
     <string name="send_password_reset_email">Send Password reset email</string>

@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity {
                return;
             }
             if (TextUtils.isEmpty(password)) {
-               Toast.makeText(HomeActivity.this, getString(R.string.enter_pasword), Toast.LENGTH_SHORT).show();
+               Toast.makeText(HomeActivity.this, getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
                return;
             }
             if (password.length() < 6) {

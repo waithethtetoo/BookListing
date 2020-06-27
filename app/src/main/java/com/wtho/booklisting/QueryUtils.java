@@ -99,7 +99,10 @@ public final class QueryUtils {
             String author = properties.getString("authors");
             String date = properties.getString("publishedDate");
 
-            Books book = new Books(title, author, date);
+            JSONObject imageLinks = properties.getJSONObject("imageLinks");
+            String imageUrl = imageLinks.getString("thumbnail");
+
+            Books book = new Books(title, author, date, imageUrl);
             books.add(book);
          }
       } catch (JSONException e) {

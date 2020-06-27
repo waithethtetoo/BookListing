@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                return;
             }
             if (TextUtils.isEmpty(password)) {
-               Toast.makeText(LoginActivity.this, getString(R.string.enter_pasword), Toast.LENGTH_SHORT).show();
+               Toast.makeText(LoginActivity.this, getString(R.string.enter_password), Toast.LENGTH_SHORT).show();
                return;
             }
             progressBar.setVisibility(View.VISIBLE);
