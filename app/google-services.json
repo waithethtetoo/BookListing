@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "825772993383",
+    "firebase_url": "https://booklist-9afb3.firebaseio.com",
+    "project_id": "booklist-9afb3",
+    "storage_bucket": "booklist-9afb3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825772993383:android:8545f03dba3e69832d5dc2",
+        "android_client_info": {
+          "package_name": "com.wtho.booklisting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825772993383-3jjep0n4gmj5j8sa5f7trfsqq916ccfu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYxlKfP8tbD5M6er2R309mMkZOszT7WWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825772993383-3jjep0n4gmj5j8sa5f7trfsqq916ccfu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

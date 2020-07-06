@@ -1,8 +1,10 @@
-package com.wtho.booklisting;
+package com.wtho.booklisting.data;
 
 
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.wtho.booklisting.activity.BookShowActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,14 +17,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
 public final class QueryUtils {
-   public static final String LOG_TAG = MainActivity.class.getName();
+   public static final String LOG_TAG = BookShowActivity.class.getName();
 
    public QueryUtils() {
    }
@@ -100,8 +100,12 @@ public final class QueryUtils {
             String title = properties.getString("title");
             String author = properties.getString("authors");
             String date = properties.getString("publishedDate");
+            String description = properties.getString("description");
 
-            Books book = new Books(title, author, date);
+            JSONObject imageLinks = properties.getJSONObject("imageLinks");
+            String imageUrl = imageLinks.getString("thumbnail");
+
+            Books book = new Books(title, author, date, description, imageUrl);
             books.add(book);
          }
       } catch (JSONException e) {
