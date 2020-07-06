@@ -1,4 +1,4 @@
-package com.wtho.booklisting;
+package com.wtho.booklisting.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,18 +6,18 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
 import java.util.List;
-import java.util.zip.Inflater;
 
 import android.app.LoaderManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,14 +25,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.wtho.booklisting.ItemListener;
+import com.wtho.booklisting.data.Books;
+import com.wtho.booklisting.data.BooksLoader;
+import com.wtho.booklisting.R;
+import com.wtho.booklisting.adapter.BookCustomAdapter;
 
 
 public class BookShowActivity extends AppCompatActivity implements LoaderCallbacks<List<Books>> {
    private RecyclerView lstBooks;
    private TextView tvEmpty;
    private ProgressBar progressBar;
-   private static String BOOKS_URL = "https://www.googleapis.com/books/v1/volumes?q=android";
+   private static String BOOKS_URL = "https://www.googleapis.com/books/v1/volumes?q=fashion";
    private ConnectivityManager cm;
    private BookCustomAdapter adapter;
    private List<Books> mBooksList;
@@ -76,6 +80,18 @@ public class BookShowActivity extends AppCompatActivity implements LoaderCallbac
          mBooksList = data;
          adapter = new BookCustomAdapter(mBooksList);
          lstBooks.setAdapter(adapter);
+         adapter.setOnItemClickListener(new ItemListener() {
+            @Override
+            public void onItemClick(int position) {
+               String bookURL = mBooksList.get(position).getmImageUrl();
+               String bookDescription = mBooksList.get(position).getmDescription();
+
+               Intent intent = new Intent(getApplicationContext(), BookDescriptionActivity.class);
+               intent.putExtra("bookURL", bookURL);
+               intent.putExtra("description", bookDescription);
+               startActivity(intent);
+            }
+         });
       } else {
          tvEmpty.setText(R.string.no_books);
       }

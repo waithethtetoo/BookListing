@@ -1,31 +1,28 @@
-package com.wtho.booklisting;
+package com.wtho.booklisting.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
+import com.wtho.booklisting.ItemListener;
+import com.wtho.booklisting.data.Books;
+import com.wtho.booklisting.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.List;
 
 public class BookCustomAdapter extends RecyclerView.Adapter<BookCustomAdapter.BookViewHolder> {
    private List<Books> booksList;
    private Context context;
+   private ItemListener listener;
 
    public BookCustomAdapter(List<Books> booksList) {
       this.booksList = booksList;
@@ -42,13 +39,23 @@ public class BookCustomAdapter extends RecyclerView.Adapter<BookCustomAdapter.Bo
    }
 
    @Override
-   public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
+   public void onBindViewHolder(@NonNull BookViewHolder holder, final int position) {
       Books book = booksList.get(position);
       holder.mTitle.setText(book.getmTitle());
       holder.mAuthor.setText(book.getmAuthor());
       holder.mPublishedDate.setText(book.getmPublishedDate());
       Picasso.with(context).load(book.getmImageUrl())
               .error(R.drawable.ic_book_24dp).into(holder.mBookImage);
+      holder.mTitle.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            listener.onItemClick(position);
+         }
+      });
+   }
+
+   public void setOnItemClickListener(ItemListener itemListener) {
+      this.listener = itemListener;
    }
 
    @Override
@@ -61,9 +68,11 @@ public class BookCustomAdapter extends RecyclerView.Adapter<BookCustomAdapter.Bo
       TextView mAuthor;
       TextView mPublishedDate;
       ImageView mBookImage;
+      private Context context;
 
       public BookViewHolder(@NonNull View itemView) {
          super(itemView);
+         context = itemView.getContext();
          mTitle = itemView.findViewById(R.id.tvTitle);
          mAuthor = itemView.findViewById(R.id.tvAuthor);
          mPublishedDate = itemView.findViewById(R.id.tvPublishedDate);

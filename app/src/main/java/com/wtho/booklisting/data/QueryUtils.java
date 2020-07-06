@@ -1,8 +1,10 @@
-package com.wtho.booklisting;
+package com.wtho.booklisting.data;
 
 
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.wtho.booklisting.activity.BookShowActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -98,11 +100,12 @@ public final class QueryUtils {
             String title = properties.getString("title");
             String author = properties.getString("authors");
             String date = properties.getString("publishedDate");
+            String description = properties.getString("description");
 
             JSONObject imageLinks = properties.getJSONObject("imageLinks");
             String imageUrl = imageLinks.getString("thumbnail");
 
-            Books book = new Books(title, author, date, imageUrl);
+            Books book = new Books(title, author, date, description, imageUrl);
             books.add(book);
          }
       } catch (JSONException e) {

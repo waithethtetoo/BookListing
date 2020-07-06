@@ -1,18 +1,20 @@
-package com.wtho.booklisting;
+package com.wtho.booklisting.data;
 
 import android.content.AsyncTaskLoader;
 import android.content.Context;
+
+import com.wtho.booklisting.activity.BookShowActivity;
 
 import java.util.List;
 
 public class BooksLoader extends AsyncTaskLoader<List<Books>> {
 
    public static final String LOG_TAG = BookShowActivity.class.getName();
-   private String murl;
+   private String mUrl;
 
    public BooksLoader(Context context, String url) {
       super(context);
-      this.murl = url;
+      this.mUrl = url;
    }
 
    @Override
@@ -23,10 +25,10 @@ public class BooksLoader extends AsyncTaskLoader<List<Books>> {
 
    @Override
    public List<Books> loadInBackground() {
-      if (murl == null) {
+      if (mUrl == null) {
          return null;
       }
-      List<Books> books = QueryUtils.fetchBooksData(murl);
+      List<Books> books = QueryUtils.fetchBooksData(mUrl);
       return books;
    }
 }
